@@ -31,14 +31,14 @@ public class DoodleView extends View
    
    private int backgroundColour;
 
-   private Bitmap bitmap; // drawing area for display or saving
+   private static Bitmap bitmap; // drawing area for display or saving
    private Canvas bitmapCanvas; // used to draw on bitmap
    private final Paint paintScreen; // used to draw bitmap onto screen
    private final Paint paintLine; // used to draw lines onto bitmap
    
    // Maps of current Paths being drawn and Points in those Paths
-   private final Map<Integer, Path> pathMap = new HashMap<Integer, Path>(); 
-   private final Map<Integer, Point> previousPointMap = 
+   private final static Map<Integer, Path> pathMap = new HashMap<Integer, Path>(); 
+   private final static Map<Integer, Point> previousPointMap = 
       new HashMap<Integer, Point>();
    
    // used to hide/show system bars 
@@ -70,7 +70,7 @@ public class DoodleView extends View
       bitmap = Bitmap.createBitmap(getWidth(), getHeight(), 
          Bitmap.Config.ARGB_8888);
       bitmapCanvas = new Canvas(bitmap);
-      bitmap.eraseColor(Color.WHITE); // erase the Bitmap with white
+      //bitmap.eraseColor(Color.WHITE); // erase the Bitmap with white
    } 
    
    // clear the painting
@@ -78,7 +78,7 @@ public class DoodleView extends View
    {
       pathMap.clear(); // remove all paths
       previousPointMap.clear(); // remove all previous points
-      bitmap.eraseColor(Color.WHITE); // clear the bitmap 
+      //bitmap.eraseColor(Color.WHITE); // clear the bitmap 
       invalidate(); // refresh the screen
    }
    
@@ -89,6 +89,13 @@ public class DoodleView extends View
       bitmap.eraseColor(color); // clear the bitmap
       backgroundColour = color;
       invalidate(); // refresh the screen
+   }
+   
+   public static void backgroundImage()
+   {
+      pathMap.clear(); // remove all paths
+      previousPointMap.clear(); // remove all previous points
+      bitmap.eraseColor(Color.TRANSPARENT); // clear the bitmap
    }
    
    public int getBackgroundColor() {
